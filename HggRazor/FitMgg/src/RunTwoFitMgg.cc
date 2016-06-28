@@ -412,7 +412,7 @@ RooWorkspace* MakeSignalBkgFit( TTree* treeData, TTree* treeSignal, TTree* treeS
   //---------------------------
   //RooRealVar HiggsMass("HiggsMass","", ws->var("Signal_SG_mu")->getVal());
   RooRealVar HiggsMass("HiggsMass","", ws->var("Signal_SG_mu")->getVal() );
-  RooRealVar HiggsMassUn("HiggsMassUn","", 0.005*ws->var("Signal_SG_mu")->getVal() );
+  RooRealVar HiggsMassUn("HiggsMassUn","", 0.05*ws->var("Signal_SG_mu")->getVal() );
   std::cout << "[INFO]: MC measured mass is:  " << HiggsMass.getVal() << " +/- " << HiggsMassUn.getVal() << std::endl;
   RooGaussian HiggsMass_Constraint("SMH_Constraint", "SMH_Constraint",  *ws->var("Signal_SG_mu"), HiggsMass, HiggsMassUn );
   std::cout << "pass constraints" << std::endl;
@@ -1681,7 +1681,7 @@ RooWorkspace* DoBiasTestSignal( TTree* tree, TString mggName, TString f1, TStrin
   RooAbsReal* f1Integral_sb = ws->pdf( tag1 )->createIntegral(mgg, RooFit::NormSet(mgg), RooFit::Range("low,high") );
   double f1Int_sb = f1Integral_sb->getVal();
   int npoints = (int)n_sideband/f1Int_sb;//re-scaling sideband to total bkg events (N_sideband/NORMALIZE_INTEGRAL_SIDEBAND)
- // npoints = 2*npoints;
+  npoints = 4*npoints;
   //npoints = 350;//only use this to set the number of toys bkg;
 
   std::cout << "npoints: " << npoints << std::endl;
@@ -1694,7 +1694,7 @@ RooWorkspace* DoBiasTestSignal( TTree* tree, TString mggName, TString f1, TStrin
   TString gaussTag = MakeDoubleGaussNE("signal", mgg, *ws );
   RooRealVar Ns( "sbModel_Ns", "N_{s}", 0, "" );
   Ns.setConstant(kFALSE);
-  //Ns.setRange(-1,1e4);
+  //Ns.setRange(-5,1e4);
   RooRealVar Nbkg( "sbModel_Nbkg", "N_{bkg}", 0, "" );
   Nbkg.setVal(npoints);
   Nbkg.setConstant(kFALSE);

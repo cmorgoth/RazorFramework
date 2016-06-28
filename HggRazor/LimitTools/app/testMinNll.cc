@@ -33,7 +33,7 @@ struct finalBin
   bool _final;
 };
 
-const float minNevents = 40.;
+const float minNevents = 10.;
 
 int main( int argc, char* argv[] )
 {

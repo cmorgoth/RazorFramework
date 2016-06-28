@@ -467,10 +467,12 @@ int main( int argc, char* argv[])
       RooWorkspace* w_sb;
       if ( !_getSignal ) 
 	{
+	  std::cout << "[INFO]: running S+B fit no SMH" << std::endl;
 	  w_sb = MakeSignalBkgFit( tree->CopyTree( cut ), forceSigma, constrainMu, forceMu, mggName );
 	}
       else
 	{
+	  std::cout << "[INFO]: running S+B fit with SMH" << std::endl;
 	  w_sb = MakeSignalBkgFit( tree->CopyTree( cut ), treeSignal->CopyTree( cut ), treeSMH->CopyTree( cut ), mggName );
 	}
       w_sb->Write("w_sb");
